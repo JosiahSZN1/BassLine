@@ -1,4 +1,4 @@
-package com.josiah.bassline.controllers;
+package com.josiah.bassline.models;
 
 import java.util.Date;
 
@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -24,12 +25,15 @@ public class Verse {
 	private Date createdAt;
 	private Date updatedAt;
 	
-	private String lyrics;
+	private String lineA;
+	private String lineB;
+	private String lineC;
+	private String lineD;
 	
-	@ManyToOne(fetch= FetchType.LAZY)
-	private Lyrics song;
-	
-	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="song_id")
+	private Song song;
+	    
 	public Verse() {}
 	
 	
@@ -70,25 +74,61 @@ public class Verse {
 
 
 
-	public String getLyrics() {
-		return lyrics;
+	public String getLineA() {
+		return lineA;
 	}
 
 
 
-	public void setLyrics(String lyrics) {
-		this.lyrics = lyrics;
+	public void setLineA(String lineA) {
+		this.lineA = lineA;
 	}
 
 
 
-	public Lyrics getSong() {
+	public String getLineB() {
+		return lineB;
+	}
+
+
+
+	public void setLineB(String lineB) {
+		this.lineB = lineB;
+	}
+
+
+
+	public String getLineC() {
+		return lineC;
+	}
+
+
+
+	public void setLineC(String lineC) {
+		this.lineC = lineC;
+	}
+
+
+
+	public String getLineD() {
+		return lineD;
+	}
+
+
+
+	public void setLineD(String lineD) {
+		this.lineD = lineD;
+	}
+
+
+
+	public Song getSong() {
 		return song;
 	}
 
 
 
-	public void setSong(Lyrics song) {
+	public void setSong(Song song) {
 		this.song = song;
 	}
 

@@ -1,4 +1,4 @@
-package com.josiah.bassline.controllers;
+package com.josiah.bassline.models;
 
 import java.util.Date;
 import java.util.List;
@@ -9,7 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -43,7 +45,12 @@ public class User {
     @Size(min=8, max=128, message="Confirm Password must be between 8 and 128 characters")
 	private String confirm;
 	
-	@OneToMany(mappedBy="writer", fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(
+	        name = "writers_songs", 
+	        joinColumns = @JoinColumn(name = "user_id"), 
+	        inverseJoinColumns = @JoinColumn(name = "song_id")
+	    )
 	private List<Song> songs;
 	
 	public User() {}

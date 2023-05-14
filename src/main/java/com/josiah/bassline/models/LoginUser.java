@@ -1,4 +1,4 @@
-package com.josiah.bassline.controllers;
+package com.josiah.bassline.models;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
