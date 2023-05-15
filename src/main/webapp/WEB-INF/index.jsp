@@ -16,7 +16,7 @@
 		<div>
 			<div>
 				<h2>Create an Account</h2>
-				<form:form action="/register" method="POST" modelAttribute="">
+				<form:form action="/register" method="POST" modelAttribute="createAccount">
 					<div class="form-group">
 						<form:label path="name">Name: </form:label>
 						<form:errors path="name"/>
@@ -30,24 +30,19 @@
 					<div class="form-group">
 						<form:label path="password">Password: </form:label>
 						<form:errors path="password"/>
-						<form:input path="password"/>
+						<form:input type="password" path="password"/>
 					</div>
 					<div class="form-group">
 						<form:label path="confirm">Confirm Password: </form:label>
 						<form:errors path="confirm"/>
-						<form:input path="confirm"/>
+						<form:input type="password" path="confirm"/>
 					</div>
 					<input type="submit" value="Sign Up" class="btn btn-primary"/>
 				</form:form>
 			</div>
 			<div> 
 				<h2>Sign In</h2>
-				<form:form action="/login" method="POST" modelAttribute="">
-					<div class="form-group">
-						<form:label path="name">Name: </form:label>
-						<form:errors path="name"/>
-						<form:input path="name"/>
-					</div>
+				<form:form action="/login" method="POST" modelAttribute="login">
 					<div class="form-group">
 						<form:label path="email">Email: </form:label>
 						<form:errors path="email"/>
@@ -56,14 +51,9 @@
 					<div class="form-group">
 						<form:label path="password">Password: </form:label>
 						<form:errors path="password"/>
-						<form:input path="password"/>
+						<form:input type="password" path="password"/>
 					</div>
-					<div class="form-group">
-						<form:label path="confirm">Confirm Password: </form:label>
-						<form:errors path="confirm"/>
-						<form:input path="confirm"/>
-					</div>
-					<input type="submit" value="Submit" class="btn btn-primary"/>
+					<input type="submit" value="Login" class="btn btn-primary"/>
 				</form:form>
 			</div>
 		</div>

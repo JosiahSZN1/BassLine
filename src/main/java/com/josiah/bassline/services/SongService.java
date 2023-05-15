@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.josiah.bassline.models.Song;
+import com.josiah.bassline.models.User;
 import com.josiah.bassline.models.Verse;
 import com.josiah.bassline.repositories.SongsRepository;
 
@@ -18,6 +19,9 @@ public class SongService {
 	
 	@Autowired
 	private VerseService verseServ;
+	
+	@Autowired
+	private UserService userServ;
 	
 	public Song createOrUpdateSong(Song s) {
 		return songsRepo.save(s);
@@ -42,6 +46,8 @@ public class SongService {
 		thisSong.getVerses().add(thisVerse);
 		return songsRepo.save(thisSong);
 	}
+	
+	
 	
 	public void deleteSong(Long id) {
 		songsRepo.deleteById(id);
