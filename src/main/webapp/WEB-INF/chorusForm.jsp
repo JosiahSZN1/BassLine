@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div class="container">
-		<form:form action="${song.id}/chorus/new" method="POST" modelAttribute="newChorus">
+		<form:form action="/${song.id}/chorus/new" method="POST" modelAttribute="newChorus">
 			<div class="form-group">
 				<form:label path="lineA">Line A: </form:label>
 				<form:errors path="lineA"/>

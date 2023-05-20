@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.josiah.bassline.models.Song;
-import com.josiah.bassline.models.User;
 import com.josiah.bassline.models.Verse;
 import com.josiah.bassline.repositories.SongsRepository;
 
@@ -43,7 +42,7 @@ public class SongService {
 	public Song addVerses(Long songID, Long verseID) {
 		Song thisSong = this.findSong(songID);
 		Verse thisVerse = verseServ.findVerse(verseID);
-		thisSong.getVerses().add(thisVerse);
+//		thisSong.getVerses().add(thisVerse);
 		return songsRepo.save(thisSong);
 	}
 	

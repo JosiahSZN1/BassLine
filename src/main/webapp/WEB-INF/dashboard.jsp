@@ -27,17 +27,17 @@
 					<tr>
 						<th class="border border-3 border-dark border-bottom-0">ID</th>
 						<th class="border border-3 border-dark border-bottom-0">Title</th>
-						<th class="border border-3 border-dark border-bottom-0">Author Name</th>
-						<th class="border border-3 border-dark border-bottom-0">Posted By</th>
+						<th class="border border-3 border-dark border-bottom-0">Writer(s)</th>
+						
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="book" items="${allBooks}">
+					<c:forEach var="song" items="${allSongs}">
 						<tr>
-							<td class="border border-3 border-dark border-top-0 border-bottom-0"><c:out value="${book.id}"/></td>
-							<td class="border border-3 border-dark border-top-0 border-bottom-0"><a href="/books/${book.id}"><c:out value="${book.title}"/></a></td>
-							<td class="border border-3 border-dark border-top-0 border-bottom-0"><c:out value="${book.author}"/></td>
-							<td class="border border-3 border-dark border-top-0 border-bottom-0"><c:out value="${book.user.name}"/></td>
+							<td class="border border-3 border-dark border-top-0 border-bottom-0"><c:out value="${song.id}"/></td>
+							<td class="border border-3 border-dark border-top-0 border-bottom-0"><a href="/song/${song.id}"><c:out value="${song.title}"/></a></td>
+							<td class="border border-3 border-dark border-top-0 border-bottom-0"><c:forEach var="writer" items="${song.writers}"><c:out value="${writer.name}"/> </c:forEach></td>
+						<%-- 	<td class="border border-3 border-dark border-top-0 border-bottom-0"><c:out value="${song.user.name}"/></td> --%>
 						</tr>
 					</c:forEach>
 				</tbody>

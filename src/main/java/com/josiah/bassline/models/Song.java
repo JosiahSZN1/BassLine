@@ -1,5 +1,6 @@
 package com.josiah.bassline.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,14 +30,14 @@ public class Song {
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
-	
-	private String title;
-	
 	@OneToOne(mappedBy="song", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private Chorus chorus;
 
 	@OneToMany(mappedBy="song", fetch = FetchType.LAZY)
 	private List<Verse> verses;
+	private String title;
+	
+	
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
@@ -44,7 +45,7 @@ public class Song {
 	        joinColumns = @JoinColumn(name = "song_id"), 
 	        inverseJoinColumns = @JoinColumn(name = "user_id")
 	    )
-	private List<User> writers;
+	private List <User> writers = new ArrayList<User>();
 	
 	
 	
@@ -52,9 +53,13 @@ public class Song {
 	
 	
 	
+	
+
 	public Long getId() {
 		return id;
 	}
+
+
 
 
 
@@ -64,9 +69,13 @@ public class Song {
 
 
 
+
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
+
+
 
 
 
@@ -76,9 +85,13 @@ public class Song {
 
 
 
+
+
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
+
+
 
 
 
@@ -88,9 +101,13 @@ public class Song {
 
 
 
+
+
 	public String getTitle() {
 		return title;
 	}
+
+
 
 
 
@@ -100,9 +117,13 @@ public class Song {
 
 
 
+
+
 	public Chorus getChorus() {
 		return chorus;
 	}
+
+
 
 
 
@@ -112,9 +133,13 @@ public class Song {
 
 
 
+
+
 	public List<Verse> getVerses() {
 		return verses;
 	}
+
+
 
 
 
@@ -124,15 +149,21 @@ public class Song {
 
 
 
+
+
 	public List<User> getWriters() {
 		return writers;
 	}
 
 
 
+
+
 	public void setWriters(List<User> writers) {
 		this.writers = writers;
 	}
+
+
 
 
 

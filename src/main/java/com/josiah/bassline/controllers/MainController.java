@@ -1,6 +1,7 @@
 package com.josiah.bassline.controllers;
 
-import javax.naming.Binding;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -81,7 +82,9 @@ public class MainController {
     		return "redirect:/";
     	}
     	User user = userServ.findUser(userId);
+    	List <Song> allSongs = songServ.allSongs();
     	model.addAttribute("user", user);
+    	model.addAttribute("allSongs", allSongs);
     	return "dashboard.jsp";
     }
 	
@@ -102,46 +105,53 @@ public class MainController {
 		if(result.hasErrors()) {
 			return "songForm.jsp";
 		}
-		Song thisSong = songServ.createOrUpdateSong(song);
+		
 		User thisUser = userServ.findUser((Long) session.getAttribute("id"));
-		thisSong.getWriters().add(thisUser);
+		song.getWriters().add(thisUser);
+		
 		return "redirect:/song/" + song.getId();
 	}
 	
 
 	
 	@RequestMapping("/song/{songID}")
-	public String rNewVerse(@PathVariable("songID") Long songID, Model model) {
+	public String rNewVerse(@PathVariable("songID") Long songID, Model model, HttpSession session) {
+		User currentUser = userServ.findUser((Long) session.getAttribute("id"));
 		Song currentSong = songServ.findSong(songID);
 		model.addAttribute("song", currentSong);
+		model.addAttribute("user", currentUser);
 		return "song.jsp";
 	}
 	
 	@RequestMapping("/{songID}/verse/new")
-	public String rNewVerse(@ModelAttribute("newVerse") Verse verse, @PathVariable("songID") Long songID, Binding Result, Model model) {
+	public String rNewVerse(@ModelAttribute("newVerse") Verse verse, @PathVariable("songID") Long songID, BindingResult result, Model model) {
 		Song currentSong = songServ.findSong(songID);
 		model.addAttribute("song", currentSong);
 		return "verseForm.jsp";
 	}
 	
-	@PostMapping("{songID}/verse/new")
+	@PostMapping("/{songID}/verse/new")
 	public String pNewVerse(@ModelAttribute("newVerse") Verse verse, BindingResult result, @PathVariable("songID") Long songID) {
+		Song thisSong = songServ.findSong(songID);
 		Verse thisVerse = verseServ.createOrUpdateVerse(verse);
-		songServ.addVerses(songID, thisVerse.getId());
-		return "redirect:/";
+		thisVerse.setSong(thisSong);
+		songServ.createOrUpdateSong(thisSong);
+		return "redirect:/song/" + songID;
 	}
 	
-	@RequestMapping("{songID}/chorus/new")
-	public String rNewChorus(@ModelAttribute("newChorus") Chorus chorus, @PathVariable("songID") Long songID, Model model) {
-		Song currentSong = songServ.findSong(songID);
-		songServ.createOrUpdateSong(currentSong);
+	@RequestMapping("/{songID}/chorus/new")
+	public String rNewChorus(@ModelAttribute("newChorus") Chorus chorus, @PathVariable("songID") Long songID, BindingResult result, Model model) {
+		Song thisSong = songServ.findSong(songID);
+		model.addAttribute("song", thisSong);
 		return "chorusForm.jsp";
 	}
 	
-	@PostMapping("{songID}/chorus/new")
-	public String pNewChorus(@ModelAttribute("newChorus") Chorus chorus, @PathVariable ("songID") Long songID) {
-		chorusServ.createOrUpdateChorus(chorus);
-		return "redirect:/";
+	@PostMapping("/{id}/chorus/new")
+	public String pNewChorus(@ModelAttribute("newChorus") Chorus newChorus, BindingResult result, @PathVariable ("id") Long songID) {
+		Song thisSong = songServ.findSong(songID);
+		newChorus.setSong(thisSong);
+		chorusServ.createOrUpdateChorus(newChorus);
+		return "redirect:/song/" + songID;
 	}
 	
 	
